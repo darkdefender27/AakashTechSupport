@@ -263,9 +263,53 @@ def open(request):
 def close(request):
      tickets = Ticket.objects.filter(status=1)
      return render_to_response("ac/d.html",dict(tickets=tickets), RequestContext(request))
-    
 
-                   
+@login_required
+def view_tickets(request):
+	email=request.user.email
+	tickets=Ticket.objects.filter(user_id=email)
+	if not tickets:	
+		return render_to_response("ac/email_not_valid.html",{"message":"No tickets to display"}, context_instance=RequestContext(request))
+	else:
+		tickets_dict=[]
+		print tickets
+		for t in tickets:
+			t_dic={}
+			if t.status==0:
+				status="open"
+			if t.status==1:
+				status="closed"
+			t_dic["status"]=status
+			t_dic["tablet id"]=t.tab_id
+			t_dic["message"]=t.message
+			t_dic["created date and time"]=t.created_date_time
+			t_dic["ticket id"]=t.ticket_id
+			if t.topic_priority==0:
+				p="low"
+			if t.topic_priority==1:
+				p="normal"
+			if t.topic_priority==2:
+				p="high"
+			t_dic["priority"]=p
+		
+			#reply_dict={}
+			replies=Threads.objects.filter(ticketreply=t.ticket_id)
+			if not replies:
+				reply_str="No replies yet"
+			else:
+				reply_str=""
+			print replies
+			for reply in replies:
+				print reply.reply
+				print reply.created
+				reply_str=reply_str+"Reply on "+reply.created.strftime('%Y-%m-%d')+" : "+reply.reply+" ;"
+			print reply_str
+			t_dic["Replies"]=reply_str
+			tickets_dict.append(t_dic)
+		print tickets_dict
+
+		return render_to_response("ac/view_tickets.html",{"tickets_dict":tickets_dict}, context_instance=RequestContext(request))
+		           
 
     
  

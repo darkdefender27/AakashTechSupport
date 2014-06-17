@@ -13,5 +13,7 @@ urlpatterns = patterns( '',
      url(r'^ticket_stats/', 'ac.views.ticket_status_graph', name='ticket stats'),
      url(r'^ticket_traffic/', 'ac.views.ticket_traffic_graph', name='ticket traffic'),	
      url(r'^open/', 'ac.views.open', name='open'),	
-     url(r'^close/', 'ac.views.close', name='close'),	
+     url(r'^close/', 'ac.views.close', name='close'),
+     url(r'^view_tickets/', 'ac.views.view_tickets', name='view tickets'),	
+		
 )
