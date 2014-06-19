@@ -48,6 +48,19 @@ def all_questions_view(request, url):
         }
 
     return render_to_response('questions/all_questions.html', context_dict, context)
+    
+def qview(request, id):
+    context = RequestContext(request)
+
+    posts = Post.objects.get(pk=id)
+    replies = Reply.objects.filter(title=posts)
+   
+    context_dict = {
+        'posts': posts,
+        'replies': replies,
+    }
+    return render_to_response("questions/allqueries_link.html", context_dict, context)
+
 
 
 def view_tags(request):
