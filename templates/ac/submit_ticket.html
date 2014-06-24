@@ -34,6 +34,10 @@ return false;
 <div class="container-fluid">
 <div class="col-md-4 col-md-offset-4 well">
 
+<div align="center">
+<h2>Submit your issue here</h2>
+</div>
+
 <form class="form-horizontal" name="submit_ticket_form" method="post" onsubmit="return validate()">{% csrf_token %}
     <fieldset>
         {% for field in submit_ticket_form.visible_fields %}
