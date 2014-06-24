@@ -1,7 +1,4 @@
 # Create your views here.
-import datetime
-from django.db.models.signals import post_delete
-
 __author__ = 'ushubham27'
 
 from django.contrib.auth import authenticate, login, logout
@@ -9,13 +6,14 @@ from django.shortcuts import render_to_response, get_object_or_404, render, redi
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.core.context_processors import csrf
-from django.core.validators import validate_email
-from django.contrib.auth.models import User
 from forms import UserForm
-from aakashuser.models import Post, UserProfile
-from taggit.models import Tag
 from aakashuser.models import *
+from django.contrib.auth.models import User
+from django.core.validators import validate_email
+from taggit.models import Tag
+from django.db.models.signals import post_delete
 import re
+
 # INDEX PAGE VIEW
 
 
@@ -183,71 +181,6 @@ def logout_new(request):
     #response.delete_cookie('logged_in')
     print "You have been logged out successfully."
     return response
-
-
-def display_questions(request):
-    return render_to_response('questions.html')
-
-
-def ask_question(request):
-    context = RequestContext(request)
-    if request.POST:
-        title = request.POST['post_title']
-        body = request.POST['post_text']
-        post_date = datetime.datetime.now()
-        upvotes = 0
-
-        u = User.objects.get(username=request.user.username)
-        print "Username : "
-        print u.username
-
-        some_user = UserProfile.objects.get(user=u)
-
-        creator_id = some_user.id
-#        post.creator.id = creator_id
-
-        print creator_id
-
-        post = Post.objects.create(title=title, body=body, post_date=post_date, upvotes=upvotes, creator=some_user)
-        post.tags.all()
-        post.tags.add(request.POST['post_tags'])#Adding tags to the object created.
-
-        """
-        active_user = User.objects.get(username=request.user.username)
-        print "Active User: "
-        print active_user.username
-
-        creator = active_user.id
-        post.creator = creator
-        """
-
-
-        """
-        active_user = UserProfile.objects.get(user=request.user.id)
-        #print active_user.username
-        creator = active_user.id
-        post.creator = creator
-        post.save()
-        """
-
-        que_dict = {
-            'que': post,
-            'user': request.user,
-        }
-
-        return render_to_response('post_question.html', que_dict, context)
-
-    else:
-        if request.user.is_authenticated():
-            user = request.user
-            c = {'user': user}
-            print user.username
-        else:
-            err_msg = "You need to login to post a question."
-            c = {'err_msg': err_msg}
-
-        c.update(csrf(request))
-        return render_to_response('ask_question.html', c)
 
 
 def view_tags(request):

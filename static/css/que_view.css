@@ -44,3 +44,16 @@
     width: 41px;
     height: 25px;
 }
+
+
+.space {
+    padding-top: 20px;
+}
+
+h2 {
+    font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+    font-size: 140%;
+    font-weight: bold;
+    margin-bottom: 7px;
+    line-height: 1.3;
+}

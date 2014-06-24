@@ -1,9 +1,13 @@
 # Create your views here.
+import datetime
+from django.contrib.auth.models import User
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response, render, get_object_or_404
-from aakashuser.models import Post, Reply
+from aakashuser.models import Post, Reply, UserProfile
 from taggit.models import Tag
+from django.core.context_processors import csrf
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
@@ -20,10 +24,16 @@ def all_questions_view(request, url):
         }
 
     elif url == 'frequent':
-        pass
+        posts = Post.objects.all().order_by("-post_views")
+        context_dict = {
+            'posts': posts,
+        }
 
-    elif url == 'active':
-        pass
+    elif url == 'votes':
+        posts = Post.objects.all().order_by("-upvotes")
+        context_dict = {
+            'posts': posts,
+        }
 
     elif url == 'unanswered':
         posts = Post.objects.all()
@@ -46,8 +56,99 @@ def all_questions_view(request, url):
         context_dict = {
             'posts': posts,
         }
+        c_dict = {
+            'url': url
+        }
+        context_dict.update(c_dict)
 
     return render_to_response('questions/all_questions.html', context_dict, context)
+
+
+def ask_question(request):
+    context = RequestContext(request)
+    if request.POST:
+        title = request.POST['post_title']
+        body = request.POST['post_text']
+        post_date = datetime.datetime.now()
+        upvotes = 0
+
+        u = User.objects.get(username=request.user.username)
+        print "Username : "
+        print u.username
+
+        some_user = UserProfile.objects.get(user=u)
+
+        creator_id = some_user.id
+#        post.creator.id = creator_id
+
+        print creator_id
+
+        post = Post.objects.create(title=title, body=body, post_date=post_date, upvotes=upvotes, creator=some_user)
+        post.tags.all()
+        post.tags.add(request.POST['post_tags'])#Adding tags to the object created.
+
+        que_dict = {
+            'posts': post,
+            'user': request.user,
+        }
+        return render_to_response('questions/question_page.html', que_dict, context)
+
+    else:
+        if request.user.is_authenticated():
+            user = request.user
+            c = {'user': user}
+            print user.username
+        else:
+            err_msg = "You need to login to post a question."
+            c = {'err_msg': err_msg}
+
+        c.update(csrf(request))
+        return render_to_response('questions/ask_question.html', c)
+
+
+def submit_reply(request, qid):
+    context = RequestContext(request)
+    context_dict = {}
+
+    if request.POST:
+        current_post = Post.objects.get(pk=qid)
+        print current_post.creator
+        print current_post.title
+
+        reply_body = request.POST['post_answer']
+        upvotes = 0
+
+        u = User.objects.get(username=request.user.username)
+        some_user = UserProfile.objects.get(user=u)
+
+        reply = Reply.objects.create(title=current_post, body=reply_body, upvotes=upvotes, user=some_user)
+        print reply.reply_date
+
+        context_dict = {
+            'user': request.user,
+            'posts': current_post,
+            'post_reply': reply,
+        }
+
+    else:
+        return HttpResponse("Reply failed to process..")
+
+    return render_to_response('questions/question_page.html', context_dict, context)
+
+
+def link_question(request, qid):
+    context = RequestContext(request)
+    question = Post.objects.get(pk=qid)
+    posts = Post.objects.get(pk=qid)
+    replies = Reply.objects.filter(title=posts)
+
+    context_dict = {
+        'user': request.user,
+        'posts': posts,
+        'replies': replies,
+    }
+
+    return render_to_response('questions/question_page.html', context_dict, context)
 
 
 def view_tags(request):
@@ -120,19 +221,5 @@ def tag_search(request):
     except Tag.DoesNotExist:
         context_dict = {}
     return render_to_response('questions/all_questions.html', context_dict, context)
-
-
-def link_question(request, qid):
-    context = RequestContext(request)
-    question = Post.objects.get(pk=qid)
-    posts = Post.objects.get(pk=qid)
-    replies = Reply.objects.filter(title=posts)
-   
-    context_dict = {
-        'posts': posts,
-        'replies': replies,
-    }
-
-    return render_to_response('questions/question_page.html', context_dict, context)
 
 

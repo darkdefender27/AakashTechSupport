@@ -140,7 +140,11 @@
                              
                                 <tr>
                     <th>Close Date:</th>
-                    <td>06/06/2014 1:01 pm</td>
+                    {% if threads.closed_date_time > threads.created_date_time %}
+                    <td>{{ threads.closed_date_time }}</td>
+                    {% else %}
+                    <td>Not closed yet.</td>
+                    {% endif %}
                 </tr>
                             </table>
         </td>
@@ -150,15 +154,7 @@
                     <th width="100">Help Topic:</th>
                     <td {% if forloop.last %}class="last"{% endif %}>{{ threads.topic_id}}</td>
                 </tr>
-                <tr>
-                    <th nowrap>Last Message:</th>
-                <td {% if forloop.last %}class="last"{% endif %}>{{ threads.reopened_date}}</td>
-                </tr>
-                <tr>
-                    <th nowrap>Last Response:</th>
-                    <td>06/06/2014 1:01 pm</td>
-                </tr>
-                
+
             </table>
         </td>
     </tr>
@@ -171,7 +167,11 @@
 <div id="ticket_thread">
             <table class="message" cellspacing="0" cellpadding="1" width="940" border="0">
             <tr>
-                <th width="200">06/06/2014 12:54 pm</th>
+                {% if threads.closed_date_time > threads.created_date_time %}
+                <th width="200">{{ threads.closed_date_time }}</th>
+                {% else %}
+                <th width="200">Not yet closed.</th>
+                {% endif %}
                 <th width="440"><span></span></th>
                 <th width="300" class="tmeta"></th>
             </tr>
@@ -185,9 +185,9 @@
             </tr
         {% for responses in response %}
         <tr>
-         <th width="200">{{responses.created}}</th>
+         <th width="200">{{ responses.created }}</th>
         </tr>
-            <tr><td colspan=3>{{responses.reply}}</tr>
+            <tr><td colspan=3>{{ responses.reply }}</tr>
         {%  endfor %}
                     </table>
         </div>
@@ -212,18 +212,16 @@
                 <label id="uder email">{{threads.user_id}}</label>
        
                 </td>
-        <
+
             </tr>
-                        <tr>
+
+            <tr>
                 <td width="160">
                     <label><strong>Response:</strong></label>
                 </td>
                 <td width="765">
-                                   
-                   
-                       
-                        <br>
-                                        <textarea name="response" id="response" cols="50" rows="9" wrap="soft"></textarea>
+                    <br>
+                <textarea name="response" id="response" cols="50" rows="9" wrap="soft"></textarea>
                 </td>
             </tr>
                         <tr>
@@ -243,18 +241,19 @@
                 
               
            
-                        <tr>
+            <tr>
                 <td width="160">
                     <label><strong>Ticket Status:</strong></label>
                 </td>
                 <td width="765">
-                                            <label><input type="checkbox" name="reply_ticket_status" id="reply_ticket_status" value="Open"
-                            > Reopen on Reply</label>
-                                   </td>
+                    <label><input type="checkbox" name="reply_ticket_status" id="reply_ticket_status" value="Open">
+                        Reopen on Reply
+                    </label>
+               </td>
             </tr>
-                        </div>
+        </div>
         </table>
-        <p  style="padding-left:165px;">
+        <p style="padding-left:165px;">
             <input class="btn_sm" type="submit" value="Post Reply">
             <input class="btn_sm" type="reset" value="Reset">
         </p>

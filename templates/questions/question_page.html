@@ -40,7 +40,7 @@
             <tbody>
                 <tr>
                     <!-- VOTE CELL -->
-                    <td class="votecell" style="padding-top: 1cm;">
+                    <td class="votecell" style="padding-top: 0.0cm;">
                         <div class="vote">
                             <a href="#" title="This question shows research effort; it is useful and clear">
                                 <img src="{% static 'images/up1.png' %}" />
@@ -73,20 +73,102 @@
             </tbody>
         </table>
         <hr>
-        <button class="btn btn btn-primary" type="submit" data-toggle="modal" data-target="#addAnswer">Add your answer</button>
 
-        <div style="padding-top: 0.5cm;">
+        <!-- SUBMIT REPLY FORM -->
+
+        <form id="post_answer_form" method="POST" action="/questions/submit_reply/{{ posts.pk }}/">
+            {% csrf_token %}
+            <h3 id="ans_header" style="display: none;">
+                Your Answer
+            </h3>
+
+            <div style="padding-bottom: 0.3cm;">
+            </div>
+
+        </form>
+
+        <div id="ans_buttons" style="vertical-align: top; float: left;">
+            <button id="add_answer" class="btn btn btn-primary" type="button">Add your answer</button>
+            <button id="submit_reply" class="btn btn btn-primary" type="submit" form="post_answer_form" style="display: none;">Post your answer</button>
+
+
+            <button id="submit_reply" class="btn btn-primary" type="submit" form="post_answer_form" style="display: none;">
+                Post your answer
+            </button>
+
+            <!-- HTML5 form attribute used here for submit-buttons outside a form :P -->
+
+            <a id="cancel_submit" type="reset" style="display: none; padding-top: 5px;">or Cancel?</a>
         </div>
-        <!--
-        <div class="well">
 
-        </div>
+        <!-- SUBMIT REPLY FORM ENDS HERE -->
 
-        <hr>
-        <button class="btn btn btn-primary" type="submit" data-toggle="modal" data-target="#addAnswer">Add your answer</button>
-        -->
     </div>
     </div>
+
+
+    <script>
+
+
+    var ansbtn = document.getElementById('add_answer')
+    var ansform = document.getElementById('post_answer_form');
+    var post_btn = document.getElementById('add_answer')
+    var btn_click = 0;
+
+    var cancelbtn = document.getElementById('cancel_submit')
+
+    ansbtn.addEventListener('click', function(event){
+        if (btn_click == 0)
+        {
+            btn_click=1;
+            addField();
+            doChange();
+        }
+    });
+
+    cancelbtn.addEventListener('click', function(event){
+        revertChange();
+    });
+
+
+    function addField() {
+
+        var text_area = document.createElement('textarea');
+        text_area.setAttribute('id', 'text_area_{{ user.id }}')
+        text_area.setAttribute('class', 'form-control')
+        text_area.setAttribute('title', 'text_area_{{ user.id }}')
+        text_area.setAttribute('name', 'post_answer')
+        text_area.setAttribute('rows', '5')
+        text_area.setAttribute('cols', '92')
+        text_area.setAttribute('width', '610px')
+        text_area.setAttribute('placeholder', 'Enter your answer here.')
+
+        ansform.appendChild(text_area);
+
+    }
+
+    function doChange() {
+        document.getElementById('ans_header').style.display = "block";
+        document.getElementById('add_answer').style.display = "none";
+        document.getElementById('submit_reply').style.display = "block";
+        document.getElementById('cancel_submit').style.display = "block";
+        document.getElementById('ans_buttons').style.paddingTop = "0.5cm";
+    }
+
+    function revertChange() {
+        document.getElementById('ans_header').style.display = "none";
+        document.getElementById('add_answer').style.display = "block";
+        document.getElementById('submit_reply').style.display = "none";
+        document.getElementById('cancel_submit').style.display = "none";
+        document.getElementById('ans_buttons').style.paddingTop = "0.0cm";
+
+        var txt = document.getElementById('text_area_{{ user.id }}')
+        txt.remove();
+        btn_click = 0;
+    }
+
+
+    </script>
 
     <!-- AJAX SCRIPT -->
 
@@ -94,25 +176,6 @@
 
     $(document).ready(function() {
 
-        var change_vote = function() {
-
-            var value = $("form input[name='choice']:checked").val();
-
-            if (value != "")
-            {
-                var data = { choice:value };
-                var args = { type:"POST", url:"/polls/{{ poll.id }}/ajaxvote/", data:data, complete:create_vote_complete };
-                $.ajax(args);
-            }
-            else
-            {
-                // We should display a helpful error message
-            }
-            return false;
-        };
-
-
-        $("#vote").click(change_vote);
     });
 
 
@@ -133,6 +196,5 @@
 
     */
     </script>
-
 
 {% endblock %}
