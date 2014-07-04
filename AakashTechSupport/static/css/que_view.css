@@ -1,0 +1,59 @@
+.votecell {
+    width: 60px;
+    vertical-align: top;
+}
+
+.post-text {
+    word-wrap: break-word;
+    width: 660px;
+    font-size: 107%;
+    margin-bottom: 5px;
+    margin-right: 5px;
+        margin-right-value: 5px;
+        margin-right-ltr-source: physical;
+        margin-right-rtl-source: physical;
+    line-height: 130%;
+}
+
+.post-taglist {
+    margin-bottom: 10px;
+    clear: both;
+}
+
+.vote {
+    text-align: center;
+}
+
+.vote-up-off, .vote-up-on, .vote-down-off, .vote-down-on, .star-on, .star-off, .comment-up-off, .comment-up-on, .comment-flag, .flag-off, .vote-accepted-off, .vote-accepted-on {
+    text-indent: -9999em;
+    font-size: 1px;
+}
+
+.vote-up-off, .vote-up-on, .vote-down-off, .vote-down-on, .star-on, .star-off {
+    background-position: 0px -265px;
+    display: block;
+    margin: 0px auto;
+        margin-top: 0px;
+        margin-right-value: auto;
+        margin-bottom: 0px;
+        margin-left-value: auto;
+        margin-left-ltr-source: physical;
+        margin-left-rtl-source: physical;
+        margin-right-ltr-source: physical;
+        margin-right-rtl-source: physical;
+    width: 41px;
+    height: 25px;
+}
+
+
+.space {
+    padding-top: 20px;
+}
+
+h2 {
+    font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+    font-size: 140%;
+    font-weight: bold;
+    margin-bottom: 7px;
+    line-height: 1.3;
+}

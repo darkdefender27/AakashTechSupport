@@ -1,0 +1,76 @@
+.tag-cell {
+
+    width: 230px;
+    border-bottom: 1px dotted rgb(224, 224, 224);
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+    border-bottom-color: rgb(224, 224, 224);
+    padding-bottom: 12px;
+    padding-right: 6px;
+    padding-right-value: 6px;
+    padding-right-ltr-source: physical;
+    padding-right-rtl-source: physical;
+    padding-top: 6px;
+    vertical-align: top;
+
+}
+
+.item-multiplier {
+    font-size: 90%;
+    font-weight: normal;
+    margin-right: 4px;
+        margin-right-value: 4px;
+        margin-right-ltr-source: physical;
+        margin-right-rtl-source: physical;
+    color: rgb(153, 153, 153);
+}
+
+.excerpt {
+    font-size: 12px;
+    height: 39px;
+    line-height: 14px;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 4px;
+    padding-bottom: 5px;
+}
+
+.excerpt, .stats-row {
+    font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
+    font-size: 12px;
+    color: rgb(136, 136, 136);
+}
+
+.post-tag, .post-text .post-tag, .wmd-preview a.post-tag {
+    background-color: rgb(224, 234, 241);
+    color: rgb(62, 109, 142);
+    padding: 3px 4px;
+        padding-top: 3px;
+        padding-right-value: 4px;
+        padding-bottom: 3px;
+        padding-left-value: 4px;
+        padding-left-ltr-source: physical;
+        padding-left-rtl-source: physical;
+        padding-right-ltr-source: physical;
+        padding-right-rtl-source: physical;
+    margin: 2px 2px 2px 0px;
+        margin-top: 2px;
+        margin-right-value: 2px;
+        margin-bottom: 2px;
+        margin-left-value: 0px;
+        margin-left-ltr-source: physical;
+        margin-left-rtl-source: physical;
+        margin-right-ltr-source: physical;
+        margin-right-rtl-source: physical;
+    text-decoration: none;
+        -moz-text-decoration-color: -moz-use-text-color;
+        -moz-text-decoration-line: none;
+        -moz-text-decoration-style: solid;
+    font-size: 90%;
+    line-height: 1.4;
+    white-space: nowrap;
+    display: inline-block;
+    border-bottom: 1px solid rgb(179, 206, 225);
+    border-right: 1px solid rgb(179, 206, 225);
+}

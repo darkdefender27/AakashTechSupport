@@ -5,16 +5,17 @@
     <!-- SEARCH BAR IMPLEMENT -->
 
     <div id="post_body" class="col-md-8 col-md-offset-2" style="padding-top: 1cm">
-        <form action="/aakashuser/search/" role="form" id="search_form">
+        <form action="/search/" role="form" id="search_form" method="POST">
+            {% csrf_token %}
         <nav>
         <ul class="nav navbar-nav">
-            <div class="input-group" style="float: left;">
+            <div class="input-group" style="float: left; padding-left: 10px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                <input type="text" id="search" class="form-control" name="search_string" placeholder="Search" required="required" data-max-length="150" data-min-length="15" tabindex="100" maxlength="300" style="width: 600px;"/>
+                <input type="text" name="q" class="form-control" required="required" placeholder="Search here..." style="width: 600px;">
             </div>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
             <button class="btn btn btn-primary" type="submit">Search</button>
         </ul>
         </nav>
@@ -25,28 +26,77 @@
 
     <!-- SEARCH -->
 
+    <div class="container-fluid"  style="padding-top: 4cm;">
+	<div class="  col-md-8 col-md-offset-2" role="navigation">
+
+        <ul class="nav nav-tabs">
+        <h4 style="text-align: left; font-size:18px; font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; font-weight: bold;">
+            Search Results
+        </h4>
+        </ul>
+
+        {% if posts %}
+        {% for post in posts %}
+
+        <div style="padding-top: 1cm;">
+        </div>
+
+        <div id="mainbar">
+            <div id="questions" class="content-padding">
+                <div id="question-summary" class="question-summary">
+                        <div class="stats-container">
+                        <div class="stats-arrow">
+                        </div>
+                        <div class="stats" style="width: 10%; float:left; padding-top: 10px;">
+                            <div class="vote">
+                                <div class="votes">
+                                   <span class="vote-count-post">
+                                        {{ post.num_votes }}
+                                   </span>
+                                   <div class="viewcount">
+                                       votes
+                                   </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        </div>
+
+                        <div class="summary" style="float: left; width: 70%; padding-left: 40px;">
+                        <h3>
+                            <a class="question-hyperlink" href="/questions/{{ post.id }}" style="font-size: 19px;" >
+                                {{ post.title }}
+                            </a>
+                        </h3>
+                        <div class="excerpt">
+                            {{ post.body }}
+                        </div>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if error_msg %}
+            <p style="font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; font-size: 18px;">
+                {{ error_msg }}
+            </p>
+            <hr>
+        {% endif %}
+
+
+
+
+	</div>
+	</div>
+
+
+
     <div>
         <ul id="search_results">
         </ul>
     </div>
-
-	<!-- FOOTER CODE GOES HERE -->
-
-	<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-		<div id="footer">
-		  <div class="container">
-			<center>
-				<p class="muted credit">Development on <a href="http://www.aakashlabs.org.in"> Aakash Labs</a> under construction.
-				 &nbsp; |  &nbsp;
-			   	Copyright <a href="http://www.github.com/darkdefender27"> © darkdefender27</a>  Inc. and its affiliates.
-				 &nbsp; |  &nbsp;
-			   	Contact : <a href="https://www.facebook.com/sHuBhAm5/"> ushubham27 </a>
-				</p>
-			</center>
-		  </div>
-		</div>
-	</nav>
-
-	<!-- END OF FOOTER -->
 
 {% endblock %}

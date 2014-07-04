@@ -19,12 +19,16 @@ from django.contrib.auth.decorators import login_required
 # INDEX PAGE VIEW
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.shortcuts import render
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 IMAGE_PATH = os.path.join(BASE_DIR, 'media/static/images/profile_image')
+
+
+def handler404(request):
+    return render(request, '404.html')
 
 
 def change(request):
@@ -43,7 +47,8 @@ def change(request):
     }
     context = RequestContext(request)
     return render_to_response("index.html", context_dict, context)
-    
+
+
 def index(request):
     context = RequestContext(request)
     active_user = ""
@@ -56,9 +61,21 @@ def index(request):
 
 
 def search(request):
-    c = {}
-    c.update(csrf(request))
-    return render_to_response("search.html", c)
+    search_query = request.POST.get('q')
+    resultset = Post.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
+
+    if resultset:
+        context_dict = {
+            'posts': resultset
+        }
+
+    else:
+        err_msg = "No results found.."
+
+        context_dict = {
+            'error_msg': err_msg
+        }
+    return render_to_response("search.html", context_dict, context_instance=RequestContext(request))
 
 
 def validateEmail(email):

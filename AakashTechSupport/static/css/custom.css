@@ -1,0 +1,55 @@
+h1 {
+color: red;
+}
+
+h2 {
+color: yellow;
+}
+
+.subheader {
+    border-bottom: 1px solid rgb(204, 204, 204);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(204, 204, 204);
+    height: 34px;
+    clear: both;
+    margin-bottom: 15px;
+}
+
+.subheader h1, .subheader h2 {
+    float: left;
+    font-size: 18px;
+    line-height: 34px;
+    margin-bottom: 0px;
+}
+
+#tabs {
+    float: right;
+    font-weight: normal;
+}
+
+.active-tab {
+    border-bottom: 1px solid rgb(255, 255, 255);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(255, 255, 255);
+}
+
+div.site-flow img {
+    background-size: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-clip: border-box;
+    transition: background-size 0.2s;
+    transition-timing-function: cubic-bezier(.07,1.41,.82,1.41);
+    height: 70px;
+    width: 70px;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+
+}
+
+div.site-flow a.discforum:hover img {
+    background-size: 20px;
+}

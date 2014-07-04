@@ -63,7 +63,7 @@
 	-->
 		  <ul class="nav navbar-nav navbar-right" style="padding-top: 0.8cm;">
 			<li>
-			  <form class="navbar-form navbar-left" role="search" action="/search/" method="GET">
+			  <form class="navbar-form navbar-left" role="search" action="/search/" method="POST">
 			  	{% csrf_token %}
 				<div class="form-group">
                     <div class="input-group">
@@ -222,7 +222,7 @@
     {% block body_block %}
 
 
-    <div class="" style="padding-top: 0.5cm; padding-bottom: 0.7cm;">
+    <div class="" style="padding-top: 2cm; padding-bottom: 0.7cm;">
         <div class="col-md-1"></div>
         <div class="col-md-10 col-md-offset-0" role="navigation">
 
@@ -240,43 +240,24 @@
             <div class="sidebar-image" style="float: right;">
                 <img src="{% static 'images/tablets_tech_support.png' %}" width="400px" height="350px" />
             </div>
+
             <h2 style="font-family:  Whitney SSm A,Whitney SSm B,verdana,Lucida Grande,sans-serif;">
                 Got a Problem? Let's solve it..
             </h2>
-        </div>
-    </div>
+            <hr>
 
-    <!-- CAROUSEL CODE GOES HERE -->
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1" role="navigation">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-          </ol>
+            <ul style="font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; font-size: 18px;">
+                <li>
+                    <p>Search your query in our <b>Discussion Forum.</b></p>
+                </li>
+                <li>
+                    <p>No relevant questions exists? Why not <b>register</b> to our website and ask one yourself.</p>
+                </li>
+                <li>
+                    <p>Not satisifed yet! <b>Submit a ticket</b> to our <b>TechSupport</b> team</p>
+                </li>
+            </ul>
 
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner">
-            <div class="item active">
-              <div class="carousel-caption">
-              </div>
-            </div>
-            <div class="item">
-              <div class="carousel-caption">
-              </div>
-            </div>
-          </div>
-
-          <!-- Controls -->
-          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-          </a>
-          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-        </div>
         </div>
     </div>
 
@@ -284,7 +265,7 @@
 
     <!-- CAROUSEL CODE ENDS HERE -->
 
-    <div style="padding-bottom: 3cm;">
+    <div style="padding-bottom: 4cm;">
 
     </div>
 
