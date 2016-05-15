@@ -9,7 +9,7 @@ A **WebApp** to provide online *Technical Support* to the people using Aakash ta
 Clone
 -----
 
-- Make sure your Internet is working.
+- Make sure your Internet is working. :)
 - Clone this repo by typing ::
 
     git clone https://github.com/darkdefender27/AakashTechSupport.git
