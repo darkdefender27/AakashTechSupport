@@ -1,11 +1,30 @@
-# ignored files for AakashTechSupport
+# Ignored files for AakashTechSupport
 
-*.db
-
+# Binaries
 *.tex
 *.sty
 *.pyc
 
+# Database files
+*.db
+
+#Generated python scripts
 store.py
 cl.py
+
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+.idea/misc.xml
+.idea/modules.xml
+
+# Sensitive or high-churn files:
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/inspectionProfiles/
+
+# IML
+*.iml
 
